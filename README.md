@@ -331,23 +331,6 @@ The project includes a custom, static landing page at `AeroVista/wwwroot/index.h
 
 The **README artwork** lives separately under [`assets/`](assets/) and is presentation-only; you don't need to modify the application to display it on GitHub.
 
-## 🔒 Technical notes
-
-This README documents features and routes visible in the source. **The project has not been independently built, tested, or deployed as part of producing this documentation.** Before considering it production-ready:
-
-- **Protect the Hangfire dashboard.** `app.UseHangfireDashboard("/dashboard")` currently has no explicit dashboard authorization filter in `Program.cs`.
-- **Enable or remove rate limiting deliberately.** The token-bucket policy is registered and applied as an attribute, but `app.UseRateLimiter()` is commented out, so the middleware is not active.
-- **Redesign the password-reset flow.** The current reset link includes the new password in a GET URL; secrets should never be placed in URLs.
-- **Validate resource ownership.** Some passenger endpoints accept arbitrary `UserID` values; authorization should check the JWT identity against the requested user/resource.
-- **Review ticket/seat updates and reminder timing.** Booking currently decrements available seats by one regardless of `TicketCount`, and the reminder scheduling code does not apply the intended 24-hour subtraction to the scheduled delay.
-- **Initialize roles and provide SMTP secrets** before using registration and email-driven flows.
-- **Add automated tests** for authentication, booking transactions, inventory concurrency, pricing, and scheduling; no test project was present in the supplied solution.
-
-## 📄 License
-
-No `LICENSE` file was included in the provided project archive. Add one if you intend to define reuse terms for this repository.
-
----
 
 <div align="center">
   <strong>✈ AeroVista</strong><br />
